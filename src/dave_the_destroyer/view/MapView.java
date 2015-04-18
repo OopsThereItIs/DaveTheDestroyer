@@ -1,7 +1,7 @@
 package dave_the_destroyer.view;
 
 
-import dave_the_destroyer.model.menu.Map;
+import dave_the_destroyer.model.Map;
 
 import javax.swing.*;
 import java.awt.*;

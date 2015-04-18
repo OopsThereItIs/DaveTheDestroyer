@@ -1,12 +1,10 @@
 package dave_the_destroyer;
 
 
-import dave_the_destroyer.controller.menu_actions.DownAction;
-import dave_the_destroyer.controller.menu_actions.UpAction;
 import dave_the_destroyer.model.*;
 import dave_the_destroyer.model.menu.GameMenu;
 import dave_the_destroyer.model.menu.MainMenu;
-import dave_the_destroyer.model.menu.Map;
+import dave_the_destroyer.model.Map;
 import dave_the_destroyer.view.MapView;
 import dave_the_destroyer.view.menu_view.MenuView;
 

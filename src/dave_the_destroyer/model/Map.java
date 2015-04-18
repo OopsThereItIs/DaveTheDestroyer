@@ -1,7 +1,6 @@
-package dave_the_destroyer.model.menu;
+package dave_the_destroyer.model;
 
 import dave_the_destroyer.Game;
-import dave_the_destroyer.model.MainModel;
 
 import javax.swing.*;
 
