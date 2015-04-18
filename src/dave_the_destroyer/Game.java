@@ -2,6 +2,7 @@ package dave_the_destroyer;
 
 
 import dave_the_destroyer.model.*;
+import dave_the_destroyer.model.menu.AvatarCreationMenu;
 import dave_the_destroyer.model.menu.GameMenu;
 import dave_the_destroyer.model.menu.MainMenu;
 import dave_the_destroyer.model.Map;
@@ -13,33 +14,30 @@ import javax.swing.*;
 public class Game {
 
     MainModel model;
+    JFrame frame;
     JComponent view;
     ActionMap actionMap;
     ComponentInputMap inputMap;
-    JFrame frame;
+
 
     public Game (){
         initialize();
         initializeActions();
-        updateModel();
         updateView();
         configureJFrame();
 
     }
 
+
+
     private void initialize(){
-        frame = new JFrame("Dave The Destroyer");
-        actionMap = new ActionMap();
-        inputMap = new ComponentInputMap(view);
+        setFrame(new JFrame("Dave The Destroyer"));
+        setActionMap(new ActionMap());
     }
 
     private void initializeActions(){
         inputMap.put(KeyStroke.getKeyStroke("W"), "N");
         inputMap.put(KeyStroke.getKeyStroke("X"), "S");
-        inputMap.put(KeyStroke.getKeyStroke("Q"), "NW");
-        inputMap.put(KeyStroke.getKeyStroke("E"), "NE");
-        inputMap.put(KeyStroke.getKeyStroke("Z"), "SW");
-        inputMap.put(KeyStroke.getKeyStroke("V"), "SE");
         inputMap.put(KeyStroke.getKeyStroke("S"), "select");
         actionMap = model.updateValidActions();
 
@@ -50,41 +48,11 @@ public class Game {
         view.setInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW, inputMap);
     }
 
-    public  void updateModel(){
-        updateModel( new MainMenu( this ));
-    }
 
-    public void updateModel( Map m){
-        model = m;
-        if (view != null)
-            frame.remove(view);
-        view  = new MapView( m );
-        frame.add(view);
-        frame.revalidate();
-    }
+    public void start(){ //main Game loop
+        MainMenu m = new MainMenu( this );
+        updateModel(m);
 
-    public void updateModel( GameMenu m){
-        model = m;
-        if (view != null)
-            frame.remove(view);
-        view = new MenuView( m );
-        frame.add(view);
-        frame.revalidate();
-
-
-
-    }
-
-    private void configureJFrame() {
-
-        frame.add(view);
-        frame.setSize(640, 480);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    }
-
-    public void start(){ //main dave_the_destroyer.Game loop
         Boolean running = true;
         while (running) {
             view.repaint();
@@ -95,5 +63,79 @@ public class Game {
 
             }
         }
+    }
+
+    public void newGame(){
+        AvatarCreationMenu m = new AvatarCreationMenu( this );
+        updateModel(m);
+        initializeActions();
+        updateView();
+
+
+    }
+
+    public void loadGame(){
+        AvatarCreationMenu m = new AvatarCreationMenu( this );
+        updateModel( m );
+        initializeActions();
+        updateView();
+    }
+
+    public void updateModel( Map m){
+        setModel(m);
+        updateView( m );
+    }
+
+    public void updateModel( GameMenu m){
+
+        updateView( m );
+
+    }
+
+    private void updateView( GameMenu m){
+        setModel( m );
+        setView( new MenuView( m ) );
+    }
+
+    private void updateView( Map m){
+        setModel( m );
+        setView( new MapView( m ) );
+    }
+
+
+    private void configureJFrame() {
+        frame.add(view);
+        frame.setSize(640, 480);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    private void setModel(MainModel model) {
+        this.model = model;
+    }
+
+    private void setView(JComponent view) {
+        this.view = view;
+        updateFrame( view );
+    }
+
+    private void updateFrame(JComponent j){
+        if (view != null)
+            frame.remove(view);
+        frame.add(view);
+        frame.revalidate();
+    }
+
+    private void setActionMap(ActionMap actionMap) {
+        this.actionMap = actionMap;
+    }
+
+    private void setInputMap(ComponentInputMap inputMap) {
+        this.inputMap = inputMap;
+    }
+
+    private void setFrame(JFrame frame) {
+        this.frame = frame;
     }
 }

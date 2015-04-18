@@ -3,13 +3,14 @@ package dave_the_destroyer.model.menu;
 import dave_the_destroyer.Game;
 import dave_the_destroyer.model.Map;
 
-public class MainMenu extends GameMenu {
+
+public class AvatarCreationMenu extends GameMenu {
 
     String[] options;
 
-    public MainMenu(Game g){
+    public AvatarCreationMenu(Game g){
         super(g);
-        options = new String[]{ "New Game", "Load Game", "Settings"};
+        options = new String[]{ "Start Game", "Back"};
         super.setOptions(options);
 
     }
@@ -19,7 +20,7 @@ public class MainMenu extends GameMenu {
 
         switch(getSelectedIndex()){
             case 0:
-                getGame().newGame();
+                getGame().updateModel( new Map( getGame() ));
                 break;
             case 1:
 
