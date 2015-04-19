@@ -13,49 +13,21 @@ import javax.swing.*;
 
 public class Game {
 
-    MainModel model;
-    JFrame frame;
-    JComponent view;
-    ActionMap actionMap;
-    ComponentInputMap inputMap;
+    private MainModel model;
+    private JFrame frame;
+    private JComponent view;
 
 
     public Game (){
-        initialize();
-        initializeActions();
-        updateView();
-        configureJFrame();
-
+        configureJFrame(new JFrame("Dave The Destroyer"));
     }
-
-
-
-    private void initialize(){
-        setFrame(new JFrame("Dave The Destroyer"));
-        setActionMap(new ActionMap());
-    }
-
-    private void initializeActions(){
-        inputMap.put(KeyStroke.getKeyStroke("W"), "N");
-        inputMap.put(KeyStroke.getKeyStroke("X"), "S");
-        inputMap.put(KeyStroke.getKeyStroke("S"), "select");
-        actionMap = model.updateValidActions();
-
-    }
-
-    private void updateView(){
-        view.setActionMap(actionMap);
-        view.setInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW, inputMap);
-    }
-
 
     public void start(){ //main Game loop
-        MainMenu m = new MainMenu( this );
-        updateModel(m);
-
+        mainMenu();
         Boolean running = true;
         while (running) {
-            view.repaint();
+            update();
+            render();
             try {
                 Thread.sleep(60);
             } catch ( InterruptedException e){
@@ -65,36 +37,53 @@ public class Game {
         }
     }
 
+    public void mainMenu(){
+        MainMenu m = new MainMenu( this );
+        updateView( m );
+    }
+
     public void newGame(){
         AvatarCreationMenu m = new AvatarCreationMenu( this );
-        updateModel(m);
-        initializeActions();
-        updateView();
-
+        updateView( m );
 
     }
 
     public void loadGame(){
-        AvatarCreationMenu m = new AvatarCreationMenu( this );
-        updateModel( m );
-        initializeActions();
-        updateView();
+        // TODO
     }
 
-    public void updateModel( Map m){
-        setModel(m);
-        updateView( m );
+    public void settings(){
+        // TODO
     }
 
-    public void updateModel( GameMenu m){
-
-        updateView( m );
-
+    public void pauseGame(){
+        // TODO
     }
+
+
+    private ComponentInputMap loadInputMap( JComponent view ){
+        ComponentInputMap inputMap =  null; //will be changed to try loading saved input map
+        if ( inputMap == null ) {
+            inputMap =  new ComponentInputMap( view );
+            inputMap.put(KeyStroke.getKeyStroke("W"), "N");
+            inputMap.put(KeyStroke.getKeyStroke("X"), "S");
+            inputMap.put(KeyStroke.getKeyStroke("S"), "select");
+        }
+        return inputMap;
+    }
+
+    private void update(){
+        view.setActionMap( model.updateValidActions() );
+    }
+
+    private void render(){
+        frame.repaint();
+    }
+
 
     private void updateView( GameMenu m){
         setModel( m );
-        setView( new MenuView( m ) );
+        setView(new MenuView( m ));
     }
 
     private void updateView( Map m){
@@ -103,8 +92,8 @@ public class Game {
     }
 
 
-    private void configureJFrame() {
-        frame.add(view);
+    private void configureJFrame(JFrame f) {
+        setFrame( f );
         frame.setSize(640, 480);
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
@@ -115,24 +104,19 @@ public class Game {
         this.model = model;
     }
 
-    private void setView(JComponent view) {
-        this.view = view;
-        updateFrame( view );
-    }
-
-    private void updateFrame(JComponent j){
+    private void setView(JComponent v) {
         if (view != null)
             frame.remove(view);
+        this.view = v;
+        view.setInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW, loadInputMap( v ));
         frame.add(view);
         frame.revalidate();
+        System.out.println("New Game");
     }
 
-    private void setActionMap(ActionMap actionMap) {
-        this.actionMap = actionMap;
-    }
+    private void updateFrame(){
 
-    private void setInputMap(ComponentInputMap inputMap) {
-        this.inputMap = inputMap;
+
     }
 
     private void setFrame(JFrame frame) {

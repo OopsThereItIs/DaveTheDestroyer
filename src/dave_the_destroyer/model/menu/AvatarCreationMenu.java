@@ -20,13 +20,10 @@ public class AvatarCreationMenu extends GameMenu {
 
         switch(getSelectedIndex()){
             case 0:
-                getGame().updateModel( new Map( getGame() ));
+
                 break;
             case 1:
-
-                break;
-            case 2:
-
+                getGame().mainMenu();
                 break;
         }
     }

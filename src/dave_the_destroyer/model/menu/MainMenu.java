@@ -20,12 +20,13 @@ public class MainMenu extends GameMenu {
         switch(getSelectedIndex()){
             case 0:
                 getGame().newGame();
+
                 break;
             case 1:
-
+                getGame().loadGame();
                 break;
             case 2:
-
+                getGame().settings();
                 break;
         }
     }

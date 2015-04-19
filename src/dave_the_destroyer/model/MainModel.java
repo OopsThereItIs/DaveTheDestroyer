@@ -14,8 +14,7 @@ public abstract class MainModel{
 
     public Game getGame(){
         return game;
-    };
-
+    }
 
     public abstract ActionMap updateValidActions();
 }
