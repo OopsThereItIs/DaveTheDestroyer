@@ -3,8 +3,12 @@ package dave_the_destroyer.view;
 
 import dave_the_destroyer.model.Map;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class MapView  extends JComponent {
     Map map;
@@ -20,11 +24,11 @@ public class MapView  extends JComponent {
         super.paint(g);
 
         drawBackground(g);
-
+        drawMap(g);
         int w = getWidth()/2;
         int h = getHeight()/2;
 
-        drawHexagon(g, w, h, 30);
+
 
     }
 
@@ -33,28 +37,53 @@ public class MapView  extends JComponent {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         g.fillRect(0, 0, getWidth(), getHeight());
 
     }
 
-    public void drawHexagon( Graphics g, int x, int y, int r){
+    public void drawMap(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+        BufferedImage img;
+        try {
+            img = ImageIO.read(new File("res/HorizontalHex.png"));
+            int centerX = getWidth()/2;
+            int centerY = getHeight()/2 - 100;
 
-        g.setColor(Color.WHITE);
-        g2d.fillRect(x, y, 160, 40);
+            int xOffset = 25;
+            int yOffset = 15;
 
-        Polygon polygon = new Polygon();
+            for (int row = 0; row < 10; row++) {
 
-        for(int i=0; i<6; i++) {
-            polygon.addPoint(
-                    (int)( x + r * Math.cos(2 * Math.PI/6)),
-                    (int)( y + r * Math.sin(2 * Math.PI/6))
-            );
+                for (int col = 0; col < 10; col++){
+                    xOffset = 25 * col;
+                    yOffset = 15 * col;
+                    g2d.drawImage(img, centerX + xOffset, centerY + yOffset, null);
+                }
+                centerX = centerX - 25;
+                centerY = centerY + 15;
+            }
+
+
+//			//0,0
+//			g2d.drawImage(img,centerX , centerY, null);
+//			//0,1
+//			g2d.drawImage(img,centerX+25 , centerY+15, null);
+//			//1,0
+//			g2d.drawImage(img, centerX-25, centerY+15, null);
+//			//1,1
+//			g2d.drawImage(img, centerX, centerY+30, null);
+//
+//			//0,2
+//			g2d.drawImage(img,centerX+50 , centerY+30, null);
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        g.setColor( Color.GREEN );
-        g2d.drawPolygon(polygon);
-        g.setColor( Color.GREEN );
-        g2d.fillPolygon(polygon);
+
+
     }
 }

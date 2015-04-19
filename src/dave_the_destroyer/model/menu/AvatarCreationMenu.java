@@ -1,16 +1,18 @@
 package dave_the_destroyer.model.menu;
 
 import dave_the_destroyer.Game;
-import dave_the_destroyer.model.Map;
 
 
 public class AvatarCreationMenu extends GameMenu {
 
     String[] options;
+    String[] occupations;
 
     public AvatarCreationMenu(Game g){
         super(g);
-        options = new String[]{ "Start Game", "Back"};
+        setTitle("CREATE YOUR AVATAR!");
+        setSubtitle("Choose your occupation:");
+        options = new String[]{ "Smasher", "Summoner", "Sneak", "Back"};
         super.setOptions(options);
 
     }
@@ -20,9 +22,15 @@ public class AvatarCreationMenu extends GameMenu {
 
         switch(getSelectedIndex()){
             case 0:
-
+                getGame().startGame();
                 break;
             case 1:
+                getGame().startGame();
+                break;
+            case 2:
+                getGame().startGame();
+                break;
+            case 3:
                 getGame().mainMenu();
                 break;
         }

@@ -1,17 +1,14 @@
 package dave_the_destroyer.model;
 
-/**
- * Created by parango on 4/18/15.
- */
+
+
 public class Entity {
 
-    int x, y , z;
+    int x, y;
 
-    public Entity( int x, int y, int z){
-
+    public Entity( int x, int y){
         this.x = x;
         this.y = y;
-        this.z = z;
     }
 
     public int getX() {
@@ -20,9 +17,5 @@ public class Entity {
 
     public int getY() {
         return y;
-    }
-
-    public int getZ() {
-        return z;
     }
 }

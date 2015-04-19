@@ -8,13 +8,35 @@ import javax.swing.*;
 
 public abstract class GameMenu extends MainModel {
 
+
+    private String title;
+    private String subtitle;
     private String[] options;
     private int selectedOption;
 
     public GameMenu(Game g){
         super(g);
+        title = "";
+        subtitle = "";
         options = new String [] {"option1","option2" };
         selectedOption = 0;
+
+    }
+
+    public String getTitle(){
+        return title;
+    }
+
+    public String getSubtitle(){
+        return subtitle;
+    }
+
+    protected void setTitle(String title) {
+        this.title = title;
+    }
+
+    protected void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     protected void setOptions(String[] o){

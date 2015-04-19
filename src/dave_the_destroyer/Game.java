@@ -47,18 +47,28 @@ public class Game {
         updateView( m );
 
     }
-
-    public void loadGame(){
-        // TODO
-    }
-
-    public void settings(){
-        // TODO
+    public void startGame(){
+        Map m = new Map( this );
+        updateView( m );
     }
 
     public void pauseGame(){
         // TODO
     }
+
+    public void loadGame(){
+        // TODO
+    }
+
+    public void saveGame(){
+        // TODO
+    }
+
+    public void controls(){
+        // TODO
+    }
+
+
 
 
     private ComponentInputMap loadInputMap( JComponent view ){
@@ -87,16 +97,15 @@ public class Game {
     }
 
     private void updateView( Map m){
-        setModel( m );
+        setModel(m);
         setView( new MapView( m ) );
     }
 
 
     private void configureJFrame(JFrame f) {
-        setFrame( f );
+        setFrame(f);
         frame.setSize(640, 480);
         frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 

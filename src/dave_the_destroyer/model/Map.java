@@ -4,9 +4,6 @@ import dave_the_destroyer.Game;
 
 import javax.swing.*;
 
-/**
- * Created by parango on 4/18/15.
- */
 public class Map extends MainModel {
 
     Terrain[][] terrains;
@@ -17,7 +14,7 @@ public class Map extends MainModel {
         super(g);
 
         terrains = new Terrain[10][10];
-        entity = new Entity( 5,5, 5);
+        entity = new Entity( 5,5);
 
     }
 

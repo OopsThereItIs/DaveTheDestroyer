@@ -19,11 +19,11 @@ public class MenuView extends JComponent {
         //sSystem.out.println(gameMenu.getSelectedOption());
 
         super.paint(g);
-
         drawBackground(g);
-
         int x = getHeight()/2;
         int y = getHeight()/2 - 20;
+
+        drawTitles(g, x, y);
 
         for ( String option : gameMenu.getOptions() ){
 
@@ -35,6 +35,16 @@ public class MenuView extends JComponent {
 
             y += 50;
         }
+    }
+
+    private void drawTitles( Graphics g,int x, int y) {
+        g.setColor(Color.WHITE);
+        Font f = new Font("consolas", Font.BOLD, 20);
+        g.setFont(f);
+        g.drawString(gameMenu.getTitle(), x, y-70);
+        f = new Font("consolas", Font.BOLD, 12);
+        g.setFont(f);
+        g.drawString(gameMenu.getSubtitle(), x, y-30);
     }
 
     private void drawOption( Graphics g,int x, int y, String option, boolean selected){

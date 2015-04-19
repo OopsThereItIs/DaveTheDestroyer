@@ -9,7 +9,9 @@ public class MainMenu extends GameMenu {
 
     public MainMenu(Game g){
         super(g);
-        options = new String[]{ "New Game", "Load Game", "Settings"};
+        setTitle("GAME 3");
+        setSubtitle("Main Menu");
+        options = new String[]{ "New Game", "Load Game", "Controls"};
         super.setOptions(options);
 
     }
@@ -26,7 +28,7 @@ public class MainMenu extends GameMenu {
                 getGame().loadGame();
                 break;
             case 2:
-                getGame().settings();
+                getGame().controls();
                 break;
         }
     }
