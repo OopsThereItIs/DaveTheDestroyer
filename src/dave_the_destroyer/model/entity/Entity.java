@@ -1,4 +1,4 @@
-package dave_the_destroyer.model;
+package dave_the_destroyer.model.entity;
 
 
 

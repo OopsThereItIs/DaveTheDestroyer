@@ -1,11 +1,12 @@
 package dave_the_destroyer;
 
 
-import dave_the_destroyer.model.*;
+import dave_the_destroyer.model.MainModel;
+import dave_the_destroyer.model.map.Map;
 import dave_the_destroyer.model.menu.AvatarCreationMenu;
 import dave_the_destroyer.model.menu.GameMenu;
 import dave_the_destroyer.model.menu.MainMenu;
-import dave_the_destroyer.model.Map;
+import dave_the_destroyer.util.Loader;
 import dave_the_destroyer.view.MapView;
 import dave_the_destroyer.view.menu_view.MenuView;
 
@@ -19,7 +20,8 @@ public class Game {
 
 
     public Game (){
-        configureJFrame(new JFrame("Dave The Destroyer"));
+        initializeJFrame(new JFrame("Dave The Destroyer"));
+        initializeLoaderAndSaver();
     }
 
     public void start(){ //main Game loop
@@ -69,17 +71,11 @@ public class Game {
     }
 
 
-
-
     private ComponentInputMap loadInputMap( JComponent view ){
-        ComponentInputMap inputMap =  null; //will be changed to try loading saved input map
-        if ( inputMap == null ) {
-            inputMap =  new ComponentInputMap( view );
-            inputMap.put(KeyStroke.getKeyStroke("W"), "N");
-            inputMap.put(KeyStroke.getKeyStroke("X"), "S");
-            inputMap.put(KeyStroke.getKeyStroke("S"), "select");
-        }
-        return inputMap;
+
+
+
+        return loader.load;
     }
 
     private void update(){
@@ -93,42 +89,38 @@ public class Game {
 
     private void updateView( GameMenu m){
         setModel( m );
-        setView(new MenuView( m ));
+        setView(new MenuView(m));
     }
 
     private void updateView( Map m){
         setModel(m);
-        setView( new MapView( m ) );
+        setView(new MapView(m));
     }
 
 
-    private void configureJFrame(JFrame f) {
-        setFrame(f);
-        frame.setSize(640, 480);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    }
 
-    private void setModel(MainModel model) {
-        this.model = model;
-    }
+
 
     private void setView(JComponent v) {
         if (view != null)
             frame.remove(view);
         this.view = v;
-        view.setInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW, loadInputMap( v ));
+        view.setInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW, loadInputMap(v));
         frame.add(view);
         frame.revalidate();
-        System.out.println("New Game");
     }
 
-    private void updateFrame(){
-
-
+    private void setModel(MainModel model) {
+        this.model = model;
+    }
+    private void initializeLoaderAndSaver(){
+        loader = new Loader()[]
     }
 
-    private void setFrame(JFrame frame) {
+    private void initializeJFrame(JFrame f) {
         this.frame = frame;
+        frame.setSize(640, 480);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }

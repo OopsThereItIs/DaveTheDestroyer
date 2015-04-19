@@ -1,7 +1,6 @@
 package dave_the_destroyer.model.menu;
 
 import dave_the_destroyer.Game;
-import dave_the_destroyer.model.Map;
 
 public class MainMenu extends GameMenu {
 

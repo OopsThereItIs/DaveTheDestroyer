@@ -1,6 +1,8 @@
-package dave_the_destroyer.model;
+package dave_the_destroyer.model.map;
 
 import dave_the_destroyer.Game;
+import dave_the_destroyer.model.MainModel;
+import dave_the_destroyer.model.entity.Entity;
 
 import javax.swing.*;
 

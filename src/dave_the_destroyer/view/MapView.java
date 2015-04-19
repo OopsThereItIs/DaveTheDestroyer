@@ -1,7 +1,7 @@
 package dave_the_destroyer.view;
 
 
-import dave_the_destroyer.model.Map;
+import dave_the_destroyer.model.map.Map;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
