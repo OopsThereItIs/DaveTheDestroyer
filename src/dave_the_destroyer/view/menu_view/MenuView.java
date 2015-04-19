@@ -13,7 +13,6 @@ public class MenuView extends JComponent {
         gameMenu = m;
     }
 
-
     @Override
     public void paint(Graphics g) {
         //sSystem.out.println(gameMenu.getSelectedOption());

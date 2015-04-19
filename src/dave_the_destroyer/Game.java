@@ -2,12 +2,13 @@ package dave_the_destroyer;
 
 
 import dave_the_destroyer.model.MainModel;
-import dave_the_destroyer.model.map.Map;
+import dave_the_destroyer.model.map.GameWorld;
 import dave_the_destroyer.model.menu.AvatarCreationMenu;
 import dave_the_destroyer.model.menu.GameMenu;
 import dave_the_destroyer.model.menu.MainMenu;
 import dave_the_destroyer.util.Loader;
-import dave_the_destroyer.view.MapView;
+import dave_the_destroyer.util.Saver;
+import dave_the_destroyer.view.GameWorldView;
 import dave_the_destroyer.view.menu_view.MenuView;
 
 import javax.swing.*;
@@ -15,9 +16,11 @@ import javax.swing.*;
 public class Game {
 
     private MainModel model;
+    private GameWorld pausedWorld;
     private JFrame frame;
     private JComponent view;
-
+    private Loader loader;
+    private Saver saver;
 
     public Game (){
         initializeJFrame(new JFrame("Dave The Destroyer"));
@@ -41,21 +44,25 @@ public class Game {
 
     public void mainMenu(){
         MainMenu m = new MainMenu( this );
-        updateView( m );
+        update(m);
     }
 
     public void newGame(){
         AvatarCreationMenu m = new AvatarCreationMenu( this );
-        updateView( m );
+        update(m);
 
     }
     public void startGame(){
-        Map m = new Map( this );
-        updateView( m );
+        GameWorld m = new GameWorld( this );
+        update(m);
     }
 
     public void pauseGame(){
-        // TODO
+        pausedWorld = (GameWorld) model;
+
+    }
+    public void continueGame(){
+        update(pausedWorld);
     }
 
     public void loadGame(){
@@ -72,10 +79,7 @@ public class Game {
 
 
     private ComponentInputMap loadInputMap( JComponent view ){
-
-
-
-        return loader.load;
+        return loader.loadDefaultMenuInputMap( view );
     }
 
     private void update(){
@@ -87,19 +91,15 @@ public class Game {
     }
 
 
-    private void updateView( GameMenu m){
+    private void update(GameMenu m){
         setModel( m );
         setView(new MenuView(m));
     }
 
-    private void updateView( Map m){
+    private void update(GameWorld m){
         setModel(m);
-        setView(new MapView(m));
+        setView(new GameWorldView(m));
     }
-
-
-
-
 
     private void setView(JComponent v) {
         if (view != null)
@@ -114,7 +114,8 @@ public class Game {
         this.model = model;
     }
     private void initializeLoaderAndSaver(){
-        loader = new Loader()[]
+        loader = new Loader();
+        saver = new Saver();
     }
 
     private void initializeJFrame(JFrame f) {

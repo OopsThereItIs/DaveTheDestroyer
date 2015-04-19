@@ -6,13 +6,13 @@ import dave_the_destroyer.model.entity.Entity;
 
 import javax.swing.*;
 
-public class Map extends MainModel {
+public class GameWorld extends MainModel {
 
     Terrain[][] terrains;
 
     Entity entity;
 
-    public Map( Game g){
+    public GameWorld(Game g){
         super(g);
 
         terrains = new Terrain[10][10];

@@ -1,7 +1,7 @@
 package dave_the_destroyer.view;
 
 
-import dave_the_destroyer.model.map.Map;
+import dave_the_destroyer.model.map.GameWorld;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -10,11 +10,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class MapView  extends JComponent {
-    Map map;
+public class GameWorldView extends JComponent {
+    GameWorld gameWorld;
 
-    public MapView (Map m){
-        map = m;
+    public GameWorldView(GameWorld m){
+        gameWorld = m;
     }
 
     @Override
